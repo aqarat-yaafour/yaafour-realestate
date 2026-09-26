@@ -1,0 +1,96 @@
+{
+  "restaurant": {
+    "name": "مطعم الفلافل",
+    "tagline": "فلافل طازجة كل يوم",
+    "currency": "ر.س",
+    "whatsapp": "",
+    "phone": "",
+    "hours": "يوميًا من 6 صباحًا حتى 12 منتصف الليل",
+    "note": "الأسعار شاملة الضريبة"
+  },
+  "categories": [
+    { "id": "sandwiches", "name": "السندويشات" },
+    { "id": "plates", "name": "الصحون" },
+    { "id": "sides", "name": "المقبلات" },
+    { "id": "drinks", "name": "المشروبات" }
+  ],
+  "items": [
+    {
+      "id": "falafel-sandwich",
+      "category": "sandwiches",
+      "name": "سندويش فلافل",
+      "description": "فلافل، طحينة، خضار، مخلل",
+      "sizes": [
+        { "label": "عادي", "price": 5 },
+        { "label": "كبير", "price": 8 }
+      ],
+      "available": true
+    },
+    {
+      "id": "falafel-cheese-sandwich",
+      "category": "sandwiches",
+      "name": "سندويش فلافل بالجبنة",
+      "description": "فلافل مع جبنة سائلة وخضار",
+      "price": 7,
+      "available": true
+    },
+    {
+      "id": "falafel-plate",
+      "category": "plates",
+      "name": "صحن فلافل",
+      "description": "10 حبات فلافل مع طحينة وخبز",
+      "price": 15,
+      "available": true
+    },
+    {
+      "id": "mixed-plate",
+      "category": "plates",
+      "name": "صحن مشكّل",
+      "description": "فلافل، حمص، فول، سلطة وخبز",
+      "price": 22,
+      "available": true
+    },
+    {
+      "id": "hummus",
+      "category": "sides",
+      "name": "حمص",
+      "price": 8,
+      "available": true
+    },
+    {
+      "id": "foul",
+      "category": "sides",
+      "name": "فول",
+      "price": 8,
+      "available": true
+    },
+    {
+      "id": "fries",
+      "category": "sides",
+      "name": "بطاطس مقلية",
+      "sizes": [
+        { "label": "صغير", "price": 5 },
+        { "label": "كبير", "price": 9 }
+      ],
+      "available": false
+    },
+    {
+      "id": "ayran",
+      "category": "drinks",
+      "name": "لبن عيران",
+      "price": 3,
+      "available": true
+    },
+    {
+      "id": "soft-drink",
+      "category": "drinks",
+      "name": "مشروب غازي",
+      "price": 3,
+      "available": true
+    }
+  ],
+  "extras": [
+    { "name": "زيادة جبنة", "price": 2 },
+    { "name": "زيادة طحينة", "price": 1 }
+  ]
+}
