@@ -1,6 +1,9 @@
 // فحص ملف المنيو قبل النشر:  node tools/validate-menu.mjs
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
+
+const Hours = createRequire(import.meta.url)("../assets/js/hours.js");
 
 const path = fileURLToPath(new URL("../data/menu.json", import.meta.url));
 const errors = [];
@@ -24,6 +27,22 @@ if (wa === undefined || wa === "" || wa === null) {
   warnings.push("رقم واتساب (restaurant.whatsapp) فارغ: الطلب عبر واتساب غير مفعّل");
 } else if (typeof wa !== "string" || !/^[1-9]\d{7,14}$/.test(wa)) {
   errors.push('رقم واتساب يجب أن يكون نصًا من 8 إلى 15 رقمًا بالصيغة الدولية بدون + ولا أصفار بادئة (مثل "9665XXXXXXXX")');
+}
+
+const r = data.restaurant ?? {};
+if (r.schedule !== undefined) {
+  if (Hours.parseTime(r.schedule?.open, false) === null || Hours.parseTime(r.schedule?.close, true) === null) {
+    errors.push('ساعات الدوام (restaurant.schedule) يجب أن تكون بصيغة {"open":"06:00","close":"24:00"}');
+  } else if (r.schedule.open === r.schedule.close) {
+    errors.push("restaurant.schedule: وقت الفتح والإغلاق متطابقان");
+  }
+  if (!Hours.validTimeZone(r.timezone)) errors.push('المنطقة الزمنية (restaurant.timezone) غير صالحة، مثل "Asia/Riyadh"');
+} else {
+  warnings.push("restaurant.schedule غير موجود: لن تظهر شارة «مفتوح الآن / مغلق»");
+}
+if (r.mapsUrl && !/^https:\/\//.test(r.mapsUrl)) errors.push("restaurant.mapsUrl يجب أن يبدأ بـ https://");
+if (r.phone && !/^\+?\d{6,15}$/.test(String(r.phone).replace(/[\s-]/g, ""))) {
+  errors.push("restaurant.phone يجب أن يكون أرقامًا فقط (يمكن أن يبدأ بـ +)");
 }
 
 const categoryIds = new Set();

@@ -310,13 +310,46 @@ body {
   color: #fff;
 }
 .home h1 { font-size: 2.2rem; margin: 0 0 8px; color: var(--yellow); }
-.home .btn {
-  margin-top: 24px;
-  padding: 14px 40px;
+.home-tagline { margin: 0; font-size: 1.15rem; }
+.home-hours, .home-address { margin: 8px 0 0; font-size: .95rem; }
+.home-hours:empty, .home-address:empty { display: none; }
+
+.open-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 4px 16px;
   border-radius: 999px;
+  background: #fff;
+  font-weight: 800;
+}
+.open-badge[hidden] { display: none; }
+.open-badge .dot { width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
+.open-badge.is-open { color: #0b5d2a; }
+.open-badge.is-closed { color: var(--primary-dark); }
+
+.home-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 24px;
+}
+.home .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 2px solid var(--yellow);
   background: var(--yellow);
   color: var(--primary-dark);
   font-weight: 800;
   font-size: 1.1rem;
   text-decoration: none;
 }
+.home .btn[hidden] { display: none; }
+.home .btn.btn-alt { background: transparent; border-color: #fff; color: #fff; font-size: 1rem; }

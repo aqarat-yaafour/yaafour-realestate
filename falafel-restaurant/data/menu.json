@@ -6,6 +6,10 @@
     "whatsapp": "",
     "phone": "",
     "hours": "يوميًا من 6 صباحًا حتى 12 منتصف الليل",
+    "schedule": { "open": "06:00", "close": "24:00" },
+    "timezone": "Asia/Riyadh",
+    "address": "",
+    "mapsUrl": "",
     "note": "الأسعار شاملة الضريبة"
   },
   "categories": [

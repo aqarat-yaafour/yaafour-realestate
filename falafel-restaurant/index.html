@@ -12,9 +12,23 @@
 </head>
 <body>
   <main class="home">
-    <h1>مطعم الفلافل</h1>
-    <p>فلافل طازجة كل يوم</p>
-    <a class="btn" href="menu/">شاهد المنيو</a>
+    <h1 id="home-name">مطعم الفلافل</h1>
+    <p id="home-tagline" class="home-tagline">فلافل طازجة كل يوم</p>
+    <p id="home-status" class="open-badge" hidden></p>
+    <p id="home-hours" class="home-hours"></p>
+
+    <div class="home-actions">
+      <a class="btn" href="menu/">شاهد المنيو واطلب</a>
+      <a id="home-wa" class="btn btn-alt" target="_blank" rel="noopener" hidden>تواصل عبر واتساب</a>
+      <a id="home-call" class="btn btn-alt" hidden>اتصل بنا</a>
+      <a id="home-map" class="btn btn-alt" target="_blank" rel="noopener" hidden>الموقع على الخريطة</a>
+    </div>
+
+    <p id="home-address" class="home-address"></p>
   </main>
+
+  <script src="assets/js/order.js"></script>
+  <script src="assets/js/hours.js"></script>
+  <script src="assets/js/home.js"></script>
 </body>
 </html>
