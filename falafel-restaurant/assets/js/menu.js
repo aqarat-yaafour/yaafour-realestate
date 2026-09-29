@@ -267,14 +267,18 @@
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        Object.keys(links).forEach(function (id) { links[id].classList.remove("active"); });
+        Object.keys(links).forEach(function (id) {
+          links[id].classList.remove("active");
+          links[id].removeAttribute("aria-current");
+        });
         var active = links[entry.target.id];
         if (active) {
           active.classList.add("active");
+          active.setAttribute("aria-current", "true");
           active.scrollIntoView({ block: "nearest", inline: "center" });
         }
       });
-    }, { rootMargin: "-70px 0px -70% 0px" });
+    }, { rootMargin: "-80px 0px -70% 0px" });
     Array.prototype.forEach.call(document.querySelectorAll(".category"), function (s) {
       observer.observe(s);
     });

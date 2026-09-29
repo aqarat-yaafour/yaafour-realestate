@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#c62828">
   <link rel="icon" href="data:,">
   <title>المنيو</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="../assets/fonts/tajawal-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/tajawal-800.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <noscript><style>.js-only { display: none; }</style></noscript>
 </head>
 <body>
   <header class="hero">
@@ -21,14 +21,15 @@
   <nav id="category-nav" class="category-nav" aria-label="التصنيفات"></nav>
 
   <main id="menu" class="menu">
-    <p class="status">جارٍ تحميل المنيو…</p>
+    <p class="status js-only">جارٍ تحميل المنيو…</p>
+    <noscript><p class="status">لعرض المنيو يلزم تفعيل JavaScript في المتصفح.</p></noscript>
   </main>
 
   <footer class="footer">
     <p id="restaurant-note"></p>
   </footer>
 
-  <div id="order-bar" class="order-bar" hidden>
+  <aside id="order-bar" class="order-bar" aria-label="الطلب" hidden>
     <section id="order-sheet" class="order-sheet" aria-label="طلبك" hidden>
       <ul id="order-lines" class="order-lines"></ul>
       <p id="order-warning" class="order-warning" role="alert" hidden></p>
@@ -38,7 +39,7 @@
       <button id="order-toggle" class="order-toggle" type="button" aria-expanded="false" aria-controls="order-sheet"></button>
       <a id="whatsapp-btn" class="whatsapp-btn" target="_blank" rel="noopener">أرسل عبر واتساب</a>
     </div>
-  </div>
+  </aside>
 
   <div id="order-live" class="sr-only" aria-live="polite"></div>
 
