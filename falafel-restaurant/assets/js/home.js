@@ -43,6 +43,28 @@
     badge.appendChild(document.createTextNode(open ? "مفتوح الآن" : "مغلق الآن"));
   }
 
+  // يحدّث JSON-LD الثابت بالبيانات الحية (هاتف، عنوان، ساعات) لمحركات البحث التي تنفّذ JS
+  function updateStructuredData(info, tel) {
+    var node = byId("ld-json");
+    if (!node) return;
+    try {
+      var ld = JSON.parse(node.textContent);
+      if (info.name) ld.name = info.name;
+      if (tel) ld.telephone = tel.slice(4);
+      if (info.address) ld.address = { "@type": "PostalAddress", streetAddress: info.address };
+      var sc = info.schedule;
+      if (sc && Hours.parseTime(sc.open, false) !== null && Hours.parseTime(sc.close, true) !== null) {
+        ld.openingHoursSpecification = [{
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          opens: sc.open,
+          closes: sc.close
+        }];
+      }
+      node.textContent = JSON.stringify(ld);
+    } catch (e) { /* نبقي الثابت */ }
+  }
+
   function render(data) {
     var info = data.restaurant || {};
     if (info.name) document.title = info.name;
@@ -58,6 +80,7 @@
     var map = safeHttpsUrl(info.mapsUrl);
     if (map) show("home-map", map);
 
+    updateStructuredData(info, tel);
     renderStatus(info);
     setInterval(function () { renderStatus(info); }, 60000);
   }

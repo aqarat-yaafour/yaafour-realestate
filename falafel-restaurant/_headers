@@ -1,0 +1,16 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+
+# بيانات المنيو: تعديل السعر يجب أن يظهر فورًا
+/data/*
+  Cache-Control: no-cache
+
+# الخطوط لا تتغير
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# الصور: أسبوع فقط حتى يظهر التعديل عند استبدال الصورة
+/assets/img/*
+  Cache-Control: public, max-age=604800
