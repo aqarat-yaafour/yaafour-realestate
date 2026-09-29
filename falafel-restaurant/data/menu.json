@@ -90,7 +90,7 @@
     }
   ],
   "extras": [
-    { "name": "زيادة جبنة", "price": 2 },
-    { "name": "زيادة طحينة", "price": 1 }
+    { "id": "extra-cheese", "name": "زيادة جبنة", "price": 2 },
+    { "id": "extra-tahini", "name": "زيادة طحينة", "price": 1 }
   ]
 }

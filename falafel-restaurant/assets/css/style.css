@@ -8,7 +8,6 @@
   --muted: #6e5a4a;
   --line: #f1dfa6;
   --chip: #ffecb0;
-  --whatsapp: #25d366;
 }
 
 * { box-sizing: border-box; }
@@ -107,6 +106,7 @@ body {
   padding: 2px 10px;
   font-size: .95rem;
 }
+.sizes li.has-add { padding: 0; background: none; }
 .sizes strong { color: var(--primary); }
 
 .item.unavailable { opacity: .55; }
@@ -126,28 +126,142 @@ body {
 .status { text-align: center; color: var(--muted); padding: 40px 0; }
 .status.error { color: #a12a2a; }
 
-/* ---------- التذييل وزر واتساب ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- أزرار الإضافة إلى الطلب ---------- */
+.add-btn, .chip-add {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background: #fff;
+  font-weight: 700;
+}
+.add-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  min-height: 44px;
+  border-radius: 999px;
+}
+.chip-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 2px 12px;
+  border-radius: 8px;
+  background: var(--chip);
+}
+.chip-add .plus { font-weight: 800; font-size: 1.2rem; line-height: 1; }
+.add-btn:active, .chip-add:active { background: var(--primary); color: var(--yellow); }
+.add-btn:focus-visible, .chip-add:focus-visible,
+.qty-btn:focus-visible, .order-toggle:focus-visible, .order-clear:focus-visible,
+.whatsapp-btn:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
+
+/* ---------- شريط الطلب وزر واتساب ---------- */
 .footer { text-align: center; color: var(--muted); font-size: .9rem; padding: 0 16px 90px; }
 .footer p:empty { display: none; }
 
-.whatsapp-btn {
+.order-bar {
   position: fixed;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
-  max-width: 420px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  max-width: 640px;
   margin: 0 auto;
-  display: block;
-  text-align: center;
-  padding: 14px;
+  padding: 0 12px 12px;
+}
+.order-bar[hidden], .order-sheet[hidden], .order-warning[hidden] { display: none; }
+
+.order-sheet {
+  max-height: 50vh;
+  overflow-y: auto;
+  margin-bottom: 8px;
+  padding: 8px 14px 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .22);
+}
+.order-lines { list-style: none; margin: 0; padding: 0; }
+.order-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.order-line-info { display: flex; flex-direction: column; min-width: 0; }
+.order-line-name { font-weight: 700; }
+.order-line-price { color: var(--muted); font-size: .9rem; }
+.order-line-ctl { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+.order-line-qty { min-width: 1.5em; text-align: center; font-weight: 800; }
+.qty-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  background: #fff;
+  color: var(--primary);
+  font: inherit;
+  font-size: 1.3rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.order-warning { margin: 8px 0 0; color: #a12a2a; font-weight: 700; }
+.order-clear {
+  margin-top: 8px;
+  min-height: 44px;
+  padding: 0 8px;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.order-row { display: flex; gap: 8px; }
+.order-toggle {
+  flex: 1 1 0;
+  white-space: nowrap;
+  min-height: 52px;
+  padding: 0 12px;
   border-radius: 999px;
-  background: var(--whatsapp);
+  border: 2px solid var(--primary);
+  background: var(--yellow);
+  color: var(--primary-dark);
+  font: inherit;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
+  cursor: pointer;
+}
+.whatsapp-btn {
+  flex: 1 1 0;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #075e54; /* نص أبيض عليه تباين مقبول (≈7:1) بخلاف #25d366 */
   color: #fff;
   font-weight: 800;
+  text-align: center;
   text-decoration: none;
   box-shadow: 0 4px 14px rgba(0, 0, 0, .2);
 }
-.whatsapp-btn[hidden] { display: none; }
+.whatsapp-btn[aria-disabled="true"] { opacity: .5; pointer-events: none; }
 
 /* ---------- الصفحة الرئيسية ---------- */
 .home {

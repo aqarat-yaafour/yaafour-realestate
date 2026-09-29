@@ -28,8 +28,21 @@
     <p id="restaurant-note"></p>
   </footer>
 
-  <a id="whatsapp-btn" class="whatsapp-btn" hidden target="_blank" rel="noopener">اطلب عبر واتساب</a>
+  <div id="order-bar" class="order-bar" hidden>
+    <section id="order-sheet" class="order-sheet" aria-label="طلبك" hidden>
+      <ul id="order-lines" class="order-lines"></ul>
+      <p id="order-warning" class="order-warning" role="alert" hidden></p>
+      <button id="order-clear" class="order-clear" type="button">إفراغ الطلب</button>
+    </section>
+    <div class="order-row">
+      <button id="order-toggle" class="order-toggle" type="button" aria-expanded="false" aria-controls="order-sheet"></button>
+      <a id="whatsapp-btn" class="whatsapp-btn" target="_blank" rel="noopener">أرسل عبر واتساب</a>
+    </div>
+  </div>
 
+  <div id="order-live" class="sr-only" aria-live="polite"></div>
+
+  <script src="../assets/js/order.js"></script>
   <script src="../assets/js/menu.js"></script>
 </body>
 </html>
