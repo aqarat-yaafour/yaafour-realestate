@@ -70,6 +70,7 @@ body {
 
 /* ---------- شريط التصنيفات ---------- */
 .category-nav {
+  min-height: 65px; /* يحجز مكانه قبل تحميل المنيو فلا ينزاح المحتوى */
   position: sticky;
   top: 0;
   z-index: 10;
@@ -117,6 +118,27 @@ body {
   border-radius: 12px;
   padding: 12px 14px;
   margin-bottom: 10px;
+}
+.item.has-image { display: flex; align-items: flex-start; gap: 12px; }
+.item-body { flex: 1 1 auto; min-width: 0; }
+.item-img {
+  flex: 0 0 88px;
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: var(--chip);
+}
+.item.unavailable .item-img { filter: grayscale(1); }
+.badge-hot {
+  display: inline-block;
+  margin-bottom: 4px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: var(--primary-dark);
+  font-size: .8rem;
+  font-weight: 800;
 }
 .item-head {
   display: flex;

@@ -1,5 +1,5 @@
 // فحص ملف المنيو قبل النشر:  node tools/validate-menu.mjs
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync, statSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
 
@@ -7,6 +7,7 @@ const Hours = createRequire(import.meta.url)("../assets/js/hours.js");
 
 const path = fileURLToPath(new URL("../data/menu.json", import.meta.url));
 const errors = [];
+const MAX_IMAGE_BYTES = 150 * 1024;
 
 let data;
 try {
@@ -61,6 +62,21 @@ for (const item of data.items ?? []) {
   if (typeof item.id === "string" && item.id.includes("|")) errors.push(`id لا يجوز أن يحتوي "|": ${item.id}`);
   if (!item.name) errors.push(`صنف بدون اسم: ${label}`);
   if (!categoryIds.has(item.category)) errors.push(`"${label}": التصنيف "${item.category}" غير موجود`);
+
+  if (item.badge !== undefined && (typeof item.badge !== "string" || !item.badge.trim() || item.badge.length > 20)) {
+    errors.push(`"${label}": badge يجب أن يكون نصًا قصيرًا (حتى 20 حرفًا)`);
+  }
+  if (item.image !== undefined) {
+    if (typeof item.image !== "string" || !/^[\w.-]+\.(webp|jpe?g|png)$/i.test(item.image) || item.image.includes("..")) {
+      errors.push(`"${label}": image يجب أن يكون اسم ملف فقط بامتداد webp أو jpg أو png (بدون مسار)`);
+    } else {
+      const imgPath = fileURLToPath(new URL("../assets/img/items/" + item.image, import.meta.url));
+      if (!existsSync(imgPath)) errors.push(`"${label}": الصورة غير موجودة في assets/img/items/: ${item.image}`);
+      else if (statSync(imgPath).size > MAX_IMAGE_BYTES) {
+        errors.push(`"${label}": الصورة ${item.image} أكبر من 150KB (${Math.round(statSync(imgPath).size / 1024)}KB)`);
+      }
+    }
+  }
 
   const hasPrice = item.price !== undefined;
   const hasSizes = Array.isArray(item.sizes) && item.sizes.length > 0;

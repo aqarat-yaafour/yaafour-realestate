@@ -48,17 +48,39 @@
     return btn;
   }
 
+  // اسم ملف فقط داخل assets/img/items/ (لا مسارات ولا روابط خارجية)
+  var IMAGE_NAME = /^[\w.-]+\.(webp|jpe?g|png)$/i;
+
+  function renderImage(item, card) {
+    if (typeof item.image !== "string" || !IMAGE_NAME.test(item.image) || item.image.indexOf("..") !== -1) return null;
+    var img = el("img", "item-img");
+    img.src = "../assets/img/items/" + item.image;
+    img.alt = ""; // الاسم ظاهر بجانبها، فالصورة زخرفية
+    img.width = 88;
+    img.height = 88;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.addEventListener("error", function () {
+      card.classList.remove("has-image");
+      if (img.parentNode) img.parentNode.removeChild(img);
+    });
+    card.classList.add("has-image");
+    return img;
+  }
+
   // lineId: معرّف السطر في السلة (id الصنف، أو extra:id للإضافة)
   function renderItem(item, currency, lineId) {
     var card = el("article", "item" + (item.available === false ? " unavailable" : ""));
+    var body = el("div", "item-body");
+    if (item.badge) body.appendChild(el("span", "badge-hot", item.badge));
     var head = el("div", "item-head");
     head.appendChild(el("h3", "item-name", item.name));
     if (typeof item.price === "number") {
       head.appendChild(el("span", "item-price", formatPrice(item.price, currency)));
     }
-    card.appendChild(head);
+    body.appendChild(head);
 
-    if (item.description) card.appendChild(el("p", "item-desc", item.description));
+    if (item.description) body.appendChild(el("p", "item-desc", item.description));
 
     if (Array.isArray(item.sizes) && item.sizes.length) {
       var list = el("ul", "sizes");
@@ -76,13 +98,17 @@
         }
         list.appendChild(li);
       });
-      card.appendChild(list);
+      body.appendChild(list);
     } else if (typeof item.price === "number" && state.catalog[Order.lineKey(lineId, "")]) {
-      card.appendChild(addButton("add-btn", Order.lineKey(lineId, ""), "أضف " + item.name + " إلى الطلب",
+      body.appendChild(addButton("add-btn", Order.lineKey(lineId, ""), "أضف " + item.name + " إلى الطلب",
         [document.createTextNode("+ أضف إلى الطلب")]));
     }
 
-    if (item.available === false) card.appendChild(el("span", "badge-out", "غير متوفر حاليًا"));
+    if (item.available === false) body.appendChild(el("span", "badge-out", "غير متوفر حاليًا"));
+
+    var img = renderImage(item, card);
+    if (img) card.appendChild(img);
+    card.appendChild(body);
     return card;
   }
 
